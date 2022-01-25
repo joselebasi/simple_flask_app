@@ -1,5 +1,6 @@
 import os
 import sys
+import logging
 
 from flask import Flask
 from flask import render_template, request
@@ -9,6 +10,9 @@ app = Flask(__name__)
 
 stdout_fileno = sys.stdout 
 sample_input = ['Hi', 'Hello from AskPython', 'exit']
+
+logging.basicConfig(format='%(levelname)s : %(asctime)s : Clase : main.py : Linea : %(lineno)d - %(message)s', \
+                    level = logging.WARNING, filename = '/var/log/burocredito.log')
 
 @app.route("/")
 def form():
@@ -20,6 +24,8 @@ def my_form_post():
     for ip in sample_input:
         # Prints to stdout
         stdout_fileno.write(ip + '\n')
+    
+    logging.warning('warning: log en var/log')
 
     c = CurrencyConverter()
 
